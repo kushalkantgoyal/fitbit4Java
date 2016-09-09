@@ -17,7 +17,11 @@ package com.social.fitbit.api;
 
 import org.springframework.social.ApiBinding;
 
-import com.social.fitbit.api.client.impl.FitbitTemplate;
+import com.social.fitbit.api.activity.ActivityOperations;
+import com.social.fitbit.api.device.DeviceOperations;
+import com.social.fitbit.api.impl.FitbitTemplate;
+import com.social.fitbit.api.sleep.SleepOperations;
+import com.social.fitbit.api.user.UserOperations;
 
 
 /**
@@ -28,11 +32,29 @@ import com.social.fitbit.api.client.impl.FitbitTemplate;
 public interface Fitbit extends ApiBinding {
 	
 	/**
-	 * API for performing operations on Facebook user profiles.
+	 * API for performing operations on Fitbit user profiles.
 	 * @return {@link UserOperations}
 	 */
 	UserOperations userOperations();
 	
+	/**
+	 * API for performing operations on Fitbit sleep data.
+	 * @return {@link SleepOperations}
+	 */
+	SleepOperations sleepOperations();
+
+	/**
+	 * API for performing operations on Fitbit device data.
+	 * @return {@link DeviceOperations}
+	 */
+	DeviceOperations deviceOperations();
+	
+	/**
+	 * API for performing operations on Fitbit activities data.
+	 * @return {@link ActivityOperations}
+	 */
+	ActivityOperations activityOperations();
+
 	/**
 	 * Returns the access token, allowing interoperability with other libraries
 	 *
