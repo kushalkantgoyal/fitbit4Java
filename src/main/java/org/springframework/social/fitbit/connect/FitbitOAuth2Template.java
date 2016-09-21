@@ -58,6 +58,8 @@ public class FitbitOAuth2Template extends OAuth2Template {
 		Number expiresInNumber = (Number) result.get("expires_in");
 		Long expiresIn = (expiresInNumber == null) ? null : expiresInNumber.longValue();
 		
+		//overriding expiresIn to 1 year always
+		expiresIn = 31536000L;
 		return createAccessGrant(accessToken, scope, refreshToken, expiresIn, result);
 	}
 	

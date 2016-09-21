@@ -1,7 +1,9 @@
 package org.springframework.social.fitbit.api.device;
 
-import java.util.Date;
+import java.text.ParseException;
 import java.util.List;
+
+import org.springframework.social.fitbit.util.TimeUtils;
 
 
 public class Device {
@@ -14,7 +16,7 @@ public class Device {
 	     */
 	    private String battery;
 
-	    private Date lastSyncTime;
+	    private String lastSyncTime;
 	    private String deviceVersion;
 	    private List<String> features;
 	    private String mac;
@@ -37,12 +39,6 @@ public class Device {
 		public void setBattery(String battery) {
 			this.battery = battery;
 		}
-		public Date getLastSyncTime() {
-			return lastSyncTime;
-		}
-		public void setLastSyncTime(Date lastSyncTime) {
-			this.lastSyncTime = lastSyncTime;
-		}
 		public String getDeviceVersion() {
 			return deviceVersion;
 		}
@@ -60,6 +56,20 @@ public class Device {
 		}
 		public void setMac(String mac) {
 			this.mac = mac;
+		}
+		public String getLastSyncTime() {
+			return lastSyncTime;
+		}
+		public void setLastSyncTime(String lastSyncTime) {
+			
+			try {
+				String parsedLastSyncTime = lastSyncTime = TimeUtils.LOCAL_DATE_TIME_FORMATTER.format(TimeUtils.LOCAL_DATE_TIME_LONG_FORMATTER.parse(lastSyncTime));
+				this.lastSyncTime = parsedLastSyncTime;
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				this.lastSyncTime = lastSyncTime;
+			}
 		}
 
 }

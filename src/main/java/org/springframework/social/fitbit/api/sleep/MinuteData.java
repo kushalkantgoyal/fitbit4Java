@@ -1,6 +1,7 @@
 package org.springframework.social.fitbit.api.sleep;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 
 /**
  * @author Kushalkant
@@ -9,30 +10,26 @@ import java.util.Date;
 
 public class MinuteData {
 
-    private Date time;
+    private String time;
     private double value;
 
     public MinuteData() {}
     
-	public MinuteData(Date time, double value) {
-        this.time = time;
-        this.value = value;
-    }
-
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
-	}
-
 	public double getValue() {
 		return value;
 	}
 
 	public void setValue(double value) {
 		this.value = value;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	@JsonSetter("dateTime")
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 }
