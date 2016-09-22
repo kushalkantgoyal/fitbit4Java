@@ -43,6 +43,9 @@ public class FitbitOAuth2Template extends OAuth2Template {
 	protected AccessGrant postForAccessGrant(String accessTokenUrl, MultiValueMap<String, String> parameters) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		
+		//Setting default token expire time to 1 year
+		parameters.add("expires_in", "31536000");
 		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
 		ResponseEntity<Map> responseEntity = getRestTemplate().exchange(accessTokenUrl, HttpMethod.POST, requestEntity, Map.class);
 		Map<String, Object> responseMap = responseEntity.getBody();
@@ -57,9 +60,7 @@ public class FitbitOAuth2Template extends OAuth2Template {
 		// result.get("expires_in") may be an Integer, so cast it to Number first. 	
 		Number expiresInNumber = (Number) result.get("expires_in");
 		Long expiresIn = (expiresInNumber == null) ? null : expiresInNumber.longValue();
-		
-		//overriding expiresIn to 1 year always
-		expiresIn = 31536000L;
+
 		return createAccessGrant(accessToken, scope, refreshToken, expiresIn, result);
 	}
 	
